@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import FormInput from './FormInput';
+import 'bootstrap/dist/css/bootstrap.css'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    item: '',
+    items: [],
+    id: Math.floor(Math.random() * 5)
+  }
+
+  handleChange = (e) => {
+    this.setState({
+      item: e.target.value
+    })
+  }
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const newItem = {
+      title: this.state.item,
+      id: this.state.id
+    }
+    this.setState({
+      items: [...this.state.items, newItem]
+    })
+  }
+
+  render() {
+    return(
+      <div className="container"> 
+        <h1 className="my-5 text-center">A Simple React Form App</h1>
+        <FormInput onchange={ this.handleChange } />
+        <button className="btn btn-block btn-dark my-4" onSubmit={ this.handleSubmit }>Submit</button>
+      </div>
+    )
+  }
 }
 
 export default App;
